@@ -1,0 +1,19 @@
+node {
+
+    stage('Upload') {
+
+        dir('/var/lib/jenkins/workspace/folder'){
+
+            pwd(); //Log current directory
+
+            withAWS(region:'us-east-2',credentials:'aws') {
+
+                 def identity=awsIdentity();//Log AWS credentials
+
+                // Upload files from working directory 'dist' in your project workspace
+                s3Upload(bucket:"delete-1", workingDir:'', includePathPattern:'**/*')
+            }
+
+        }
+    }
+}

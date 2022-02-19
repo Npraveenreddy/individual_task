@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('S3download') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws']]) {
+                    echo "copying file from s3"
+                    sh "aws s3 cp --quiet s3://delete-1/new.txt /tmp"
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
